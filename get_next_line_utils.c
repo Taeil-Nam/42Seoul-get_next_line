@@ -6,7 +6,7 @@
 /*   By: tnam <tnam@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:22:50 by tnam              #+#    #+#             */
-/*   Updated: 2022/12/29 17:38:12 by tnam             ###   ########.fr       */
+/*   Updated: 2022/12/30 11:37:25 by tnam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ char	*ft_strjoin(char *contents, char *buffer)
 	buffer_len = ft_strlen(buffer);
 	result = (char *)malloc(((contents_len + buffer_len) * sizeof(char)) + 1);
 	if (result == 0)
+	{
+		free(contents);
 		return (0);
+	}
 	i = 0;
 	result_i = 0;
 	while (contents[i] != '\0')
@@ -82,11 +85,9 @@ void	ft_make_line(char *line, char *contents, size_t line_len)
 char	*ft_new_contents(char *new_contents, char *contents, size_t start)
 {
 	size_t	i;
-	size_t	end;
 
 	i = 0;
-	end = ft_strlen(contents);
-	while (start < end)
+	while (contents[start] != '\0')
 		new_contents[i++] = contents[start++];
 	new_contents[i] = '\0';
 	return (new_contents);

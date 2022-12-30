@@ -6,7 +6,7 @@
 /*   By: tnam <tnam@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:22:31 by tnam              #+#    #+#             */
-/*   Updated: 2022/12/29 18:10:02 by tnam             ###   ########.fr       */
+/*   Updated: 2022/12/30 11:54:39 by tnam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,30 +16,41 @@ ssize_t	ft_read(int fd, char **contents, char **buffer)
 {
 	ssize_t	read_size;
 
-	*buffer = calloc(BUFFER_SIZE + 1, sizeof(char));
-	if (buffer == NULL)
+	*buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (*buffer == NULL)
 		return (-1);
 	read_size = read(fd, *buffer, BUFFER_SIZE);
-	if (read_size < 0 && *contents)
+	if (read_size < 0)
 	{
 		free(*buffer);
-		free(*contents);
-		*contents = NULL;
+		if (*contents)
+		{
+			free(*contents);
+			*contents = NULL;
+		}
+		return (-1);
 	}
 	return (read_size);
 }
 
 char	*ft_make_contents(char *contents, char *buffer)
 {
-	if (contents == 0)
+	if (contents == NULL)
 	{
-		contents = calloc(1, 1);
+		contents = malloc(1);
 		if (contents == NULL)
+		{
+			contents = NULL;
 			return (NULL);
+		}
+		*contents = '\0';
 	}
 	contents = ft_strjoin(contents, buffer);
 	if (contents == NULL)
+	{
+		free(buffer);
 		return (NULL);
+	}
 	return (contents);
 }
 
@@ -61,7 +72,10 @@ char	*ft_split_contents_to_line(char **contents)
 		return (NULL);
 	new_contents = malloc(sizeof(char) * (new_contents_len + 1));
 	if (new_contents == NULL)
+	{
+		free(line);
 		return (NULL);
+	}
 	ft_make_line(line, *contents, line_len);
 	new_contents = ft_new_contents(new_contents, *contents, line_len + 1);
 	free(*contents);
@@ -73,7 +87,7 @@ char	*ft_eof(char **contents)
 {
 	char	*temp;
 
-	if (**contents == 0)
+	if (**contents == '\0')
 	{
 		free(*contents);
 		*contents = NULL;
@@ -95,10 +109,10 @@ char	*get_next_line(int fd)
 		return (NULL);
 	while (1)
 	{
-		buffer = NULL;
 		read_size = ft_read(fd, &contents, &buffer);
 		if (read_size < 0)
 			return (NULL);
+		buffer[read_size] = '\0';
 		contents = ft_make_contents(contents, buffer);
 		if (contents == NULL)
 			return (NULL);

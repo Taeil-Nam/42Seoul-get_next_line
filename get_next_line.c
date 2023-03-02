@@ -6,7 +6,7 @@
 /*   By: tnam <tnam@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:22:31 by tnam              #+#    #+#             */
-/*   Updated: 2022/12/30 11:54:39 by tnam             ###   ########.fr       */
+/*   Updated: 2023/03/02 14:28:30 by tnam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*ft_make_contents(char *contents, char *buffer)
 		}
 		*contents = '\0';
 	}
-	contents = ft_strjoin(contents, buffer);
+	contents = ft_strjoin_gnl(contents, buffer);
 	if (contents == NULL)
 	{
 		free(buffer);

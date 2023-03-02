@@ -6,7 +6,7 @@
 /*   By: tnam <tnam@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:21:56 by tnam              #+#    #+#             */
-/*   Updated: 2022/12/29 12:47:25 by tnam             ###   ########.fr       */
+/*   Updated: 2023/03/02 14:28:33 by tnam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 char	*get_next_line(int fd);
 size_t	ft_strlen(const char *s);
-char	*ft_strjoin(char *contents, char *buffer);
+char	*ft_strjoin_gnl(char *contents, char *buffer);
 char	*ft_strchr(const char *s, int c);
 void	ft_make_line(char *line, char *contents, size_t line_len);
 char	*ft_new_contents(char *new_contents, char *contents, size_t start);
